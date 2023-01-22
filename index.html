@@ -1,0 +1,1174 @@
+<html>
+  <head>
+    <title>The Solar System</title>
+    <meta name="description" content="WebVR Project" />
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-star-system-component@1.0.0/index.js"></script>
+
+    <script src="https://unpkg.com/aframe-animation-component@^5.1.2/dist/aframe-animation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js"></script>
+    <script src="https://unpkg.com/aframe-text-component@^0.4.1/dist/aframe-text-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-slice9-component/dist/aframe-slice9-component.min.js"></script>
+  </head>
+
+  <body>
+    <script>
+      AFRAME.registerComponent("switch-scene", {
+        init: function () {
+          var data = this.data;
+
+          document.addEventListener("keydown", function (event) {
+            var scenes = document.getElementById("scenes").children;
+            for (i = 0; i < scenes.length; i++) {
+              if (event.code === "ArrowRight") {
+                if (scenes[i].object3D.visible == true) {
+                  scenes[i].object3D.visible = false;
+                  if (i + 1 >= scenes.length) {
+                    scenes[0].object3D.visible = true;
+                  } else {
+                    scenes[i + 1].object3D.visible = true;
+                  }
+                  break;
+                }
+              } else if (event.code === "ArrowLeft") {
+                if (scenes[i].object3D.visible == true) {
+                  scenes[i].object3D.visible = false;
+                  if (i - 1 < 0) {
+                    scenes[scenes.length - 1].object3D.visible = true;
+                  } else {
+                    scenes[i - 1].object3D.visible = true;
+                  }
+                  break;
+                }
+              }
+            }
+          });
+        },
+      });
+    </script>
+    <a-scene>
+      <a-mixin
+        id="rotation"
+        animation="property: rotation; loop: true; from:  0 0 0; to: 0 360 0; dur: 15000; easing: linear;"
+      ></a-mixin>
+
+      <a-assets>
+        <img
+          id="sun-texture"
+          src="./textures/sun_texture.jpg"
+          crossorigin="anonymous"
+        />
+        <img
+          id="mercury-texture"
+          src="./textures/mercury_texture.jpg"
+          crossorigin="anonymous"
+        />
+        <img
+          id="venus-texture"
+          src="./textures/venus_texture.jpg"
+          crossorigin="anonymous"
+        />
+        <img
+          id="earth-texture"
+          src="./textures/earth_texture.jpg"
+          crossorigin="anonymous"
+        />
+        <img
+          id="mars-texture"
+          src="./textures/mars_texture.jpg"
+          crossorigin="anonymous"
+        />
+        <img
+          id="jupiter-texture"
+          src="./textures/jupiter_texture.jpg"
+          crossorigin="anonymous"
+        />
+        <img
+          id="saturn-texture"
+          src="./textures/saturn_texture.jpg"
+          crossorigin="anonymous"
+        />
+        <img
+          id="uranus-texture"
+          src="./textures/uranus_texture.jpg"
+          crossorigin="anonymous"
+        />
+        <img
+          id="neptune-texture"
+          src="./textures/neptune_texture.jpg"
+          crossorigin="anonymous"
+        />
+        <img
+          id="pluto-texture"
+          src="./textures/pluto_texture.png"
+          crossorigin="anonymous"
+        />
+        <a-asset-item
+          id="optimerBoldFont"
+          src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"
+        ></a-asset-item>
+      </a-assets>
+      <a-entity switch-scene></a-entity>
+      <a-entity id="basic-light" light="type: ambient; color: #BBB"></a-entity>
+      <a-entity
+        camera
+        look-controls
+        orbit-controls="target: 0 1.6 -0.5;  initialPosition: 0 5 25; enableKeys: false"
+      ></a-entity>
+      <a-sky color="black"></a-sky>
+      <a-entity star-system="count: 1000; radius: 250; depth: 0"></a-entity>
+
+      <a-entity id="scenes" visible="true">
+        <a-entity id="main-menu-scene" visible="true">
+          <a-text
+            value="The Solar System"
+            position="0 10 -0.5"
+            color="white"
+            width="100"
+            align="center"
+          ></a-text>
+          <a-sphere
+            id="sun"
+            position="-27 -1 0"
+            radius="3"
+            src="#sun-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+          <a-sphere
+            id="mercury"
+            position="-19 -1 0"
+            radius="0.5"
+            src="#mercury-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+          <a-sphere
+            id="venus"
+            position="-14 -1 0"
+            radius="0.6"
+            src="#venus-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+          <a-sphere
+            id="earth"
+            position="-9 -1 0"
+            radius="0.9"
+            src="#earth-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+          <a-sphere
+            id="mars"
+            position="-4 -1 0"
+            radius="0.9"
+            src="#mars-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+          <a-sphere
+            id="jupiter"
+            position="2 -1 0"
+            radius="1.7"
+            src="#jupiter-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+          <a-sphere
+            id="saturn"
+            position="9 -1 0"
+            radius="1.5"
+            src="#saturn-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+          <a-entity
+            id="rings"
+            scale="1.6 0.1 1.6"
+            rotation="0 -12 12"
+            position="9 -1 0"
+          >
+            <a-entity
+              id="neptune-ring-1"
+              geometry="primitive: torus; radius: 1.9; radiusTubular: 0.01;segmentsTubular: 50"
+              material="color: #FFFFFF;opacity: 0.8"
+              rotation="90 0 0"
+              scale="1 1 0.1"
+            ></a-entity>
+            <a-entity
+              id="neptune-ring-2"
+              geometry="primitive: torus; radius: 1.7; radiusTubular: 0.05;segmentsTubular: 50"
+              material="color: #FFFFFF;opacity: 0.8"
+              rotation="90 0 0"
+              scale="1 1 0.1"
+            ></a-entity>
+            <a-entity
+              id="neptune-ring-3"
+              geometry="primitive: torus; radius: 1.5; radiusTubular: 0.01;segmentsTubular: 50"
+              material="color: #FFFFFF;opacity: 0.8"
+              rotation="90 0 0"
+              scale="1 1 0.1"
+            ></a-entity>
+          </a-entity>
+          <a-sphere
+            id="uranus"
+            position="16 -1 0"
+            radius="1.2"
+            src="#uranus-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          >
+          </a-sphere>
+          <a-sphere
+            id="neptune"
+            position="23 -1 0"
+            radius="1.2"
+            src="#neptune-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+          <a-sphere
+            id="pluto"
+            position="30 -1 0"
+            radius="0.3"
+            src="#pluto-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+        </a-entity>
+        <a-entity id="about-scene" visible="false">
+          <a-text
+            value="About this Project"
+            position="0 15 -0.5"
+            color="white"
+            width="100"
+            align="center"
+          ></a-text>
+          <a-entity
+            geometry="primitive: plane"
+            position="0 -4 -1"
+            rotation="0 0 0"
+            scale="50 27 0"
+            color="white"
+            material="opacity: 0.5; transparent: true"
+          ></a-entity>
+          <a-text
+            value="
+            Instituto Tecnologico de Costa Rica
+            Virtual Reality: WebVR Project
+            The Solar System
+            
+            Students:
+            * Valeria Calderon Charpentier
+            * Alejandro Loaiza Alvarado
+            * Pablo Munoz Hidalgo
+            "
+            position="-23 -3 -0.5"
+            color="white"
+            width="35"
+            align="left"
+            line-height="60"
+          ></a-text>
+          <a-text
+            value="
+            Description:
+
+            This is a project
+            that highlights the
+            concepts learned about
+            WebVR in a small educational
+            tour about the planets
+            of the solar system.
+            "
+            position="3 -3 -0.5"
+            color="white"
+            width="35"
+            align="left"
+            line-height="60"
+          ></a-text>
+        </a-entity>
+        <a-entity id="scene1" visible="false">
+          <a-entity id="name">
+            <a-text
+              value="Sun"
+              position="0 15 0"
+              color="white"
+              width="100"
+              align="center"
+            ></a-text>
+          </a-entity>
+          <a-entity id="info">
+            <a-entity
+              geometry="primitive: plane"
+              position="25 0 -1"
+              rotation="0 -20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Curious Fact:"
+              position="25 5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              The Sun is a giant plasma ball, inside 
+              which thermonuclear reactions take place.
+              It is located at a distance of almost 150
+              million km from us. Our luminary is a
+              typical G-class star in the middle of its
+              life cycle. Its surface temperature is 5780°
+              Kelvin. Due to this, the spectrum of its
+              radiation is almost white. Yellowish color
+              emerges when its rays pass through the Earth’s
+              atmosphere.
+              "
+              position="24.5 -1 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="15"
+              align="center"
+              line-height="60"
+            ></a-text>
+            <a-entity
+              geometry="primitive: plane"
+              position="-25 0 -1"
+              rotation="0 20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Star Info:"
+              position="-25 5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Diameter (1,391,016 km)
+              Mass (1.9891x10^30 kg) 
+              Rotation Period [Days] (0)
+              Orbital Period [Years] (0)
+              "
+              position="-25 -1 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="25"
+              align="center"
+              line-height="80"
+            ></a-text>
+          </a-entity>
+          <a-sphere
+            id="sun"
+            position="0 0 0"
+            radius="10"
+            src="#sun-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+        </a-entity>
+        <a-entity id="scene2" visible="false">
+          <a-entity id="name">
+            <a-text
+              value="Mercury"
+              position="0 15 0"
+              color="white"
+              width="100"
+              align="center"
+            ></a-text>
+          </a-entity>
+          <a-entity id="info">
+            <a-entity
+              geometry="primitive: plane"
+              position="25 0 -1"
+              rotation="0 -20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Curious Fact:"
+              position="25 5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Did you know that Mercury takes
+              59 days to rotate but only 88 days
+              to go around the sun. This means
+              that there are less than 2 days in
+              a year!
+              "
+              position="24.5 -0.5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="20"
+              align="center"
+              line-height="80"
+            ></a-text>
+            <a-entity
+              geometry="primitive: plane"
+              position="-25 0 -1"
+              rotation="0 20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Planet Info:"
+              position="-25 5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Diameter (4878 km)
+              Mass (0.06 times earth) 
+              Rotation Period [Days] (58.6667)
+              Orbital Period [Years] (0.39)
+              "
+              position="-25 0 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="21"
+              align="center"
+              line-height="80"
+            ></a-text>
+          </a-entity>
+          <a-sphere
+            id="mercury"
+            position="0 0 0"
+            radius="10"
+            src="#mercury-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+        </a-entity>
+        <a-entity id="scene3" visible="false">
+          <a-entity id="name">
+            <a-text
+              value="Venus"
+              position="0 15 0"
+              color="white"
+              width="100"
+              align="center"
+            ></a-text>
+          </a-entity>
+          <a-entity id="info">
+            <a-entity
+              geometry="primitive: plane"
+              position="25 0 -1"
+              rotation="0 -20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Curious Fact:"
+              position="25 5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Did you know that Venus is the
+              brightest planet in our sky and
+              can sometimes be seen with the
+              naked eye if you know where to
+              look. Yellow clouds of sulfuric
+              acid intensely reflect sunlight.
+              "
+              position="24.5 -0.5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="20"
+              align="center"
+              line-height="70"
+            ></a-text>
+            <a-entity
+              geometry="primitive: plane"
+              position="-25 0 -1"
+              rotation="0 20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Planet Info:"
+              position="-25 5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Diameter (12100 km)
+              Mass (0.82 times earth)
+              Rotation Period [Days] (243)
+              Orbital Period [Years] (0.615)
+              "
+              position="-25 0 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="21"
+              align="center"
+              line-height="80"
+            ></a-text>
+          </a-entity>
+          <a-sphere
+            id="venus"
+            position="0 0 0"
+            radius="10"
+            src="#venus-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+        </a-entity>
+        <a-entity id="scene4" visible="false">
+          <a-entity id="name">
+            <a-text
+              value="Earth"
+              position="0 15 0"
+              color="white"
+              width="100"
+              align="center"
+            ></a-text>
+          </a-entity>
+          <a-entity id="info">
+            <a-entity
+              geometry="primitive: plane"
+              position="25 0 -1"
+              rotation="0 -20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Curious Fact:"
+              position="25 5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Did you know that Earth has
+              more exposed water than dry
+              land. Three quarters of the
+              Earth is covered in water!
+              "
+              position="24.5 -0.5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="22"
+              align="center"
+              line-height="85"
+            ></a-text>
+            <a-entity
+              geometry="primitive: plane"
+              position="-25 0 -1"
+              rotation="0 20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Planet Info:"
+              position="-25 5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Diameter (12756 km)
+              Mass (1.00 times earth)
+              Rotation Period [Days] (1)
+              Orbital Period [Years] (1)
+              "
+              position="-25 -0.5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="23"
+              align="center"
+              line-height="80"
+            ></a-text>
+          </a-entity>
+          <a-sphere
+            id="earth"
+            position="0 0 0"
+            radius="10"
+            src="#earth-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+        </a-entity>
+        <a-entity id="scene5" visible="false">
+          <a-entity id="name">
+            <a-text
+              value="Mars"
+              position="0 15 0"
+              color="white"
+              width="100"
+              align="center"
+            ></a-text>
+          </a-entity>
+          <a-entity id="info">
+            <a-entity
+              geometry="primitive: plane"
+              position="25 0 -1"
+              rotation="0 -20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Curious Fact:"
+              position="25 5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value='
+              Did you know that Mars is home
+              to "Mount Olympus", the largest
+              volcano found in the solar system.
+              It is approximately 27 kilometers
+              high and has a crater 81 kilometers
+              wide.'
+              position="24.5 -1 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="20"
+              align="center"
+              line-height="75"
+            ></a-text>
+            <a-entity
+              geometry="primitive: plane"
+              position="-25 0 -1"
+              rotation="0 20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Planet Info:"
+              position="-25 5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Diameter (6787 km)
+              Mass (0.11 times earth)
+              Rotation Period [Days] (1.03)
+              Orbital Period [Years] (1.88)
+              "
+              position="-25 -0.5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="23"
+              align="center"
+              line-height="80"
+            ></a-text>
+          </a-entity>
+          <a-sphere
+            id="mars"
+            position="0 0 0"
+            radius="10"
+            src="#mars-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+        </a-entity>
+        <a-entity id="scene6" visible="false">
+          <a-entity id="name">
+            <a-text
+              value="Jupiter"
+              position="0 15 0"
+              color="white"
+              width="100"
+              align="center"
+            ></a-text>
+          </a-entity>
+          <a-entity id="info">
+            <a-entity
+              geometry="primitive: plane"
+              position="25 0 -1"
+              rotation="0 -20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Curious Fact:"
+              position="25 5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Did you know that Jupiter is 
+              so big that you could put all
+              the other planets in the solar
+              system inside it. Jupiter's red
+              spot is the largest and most
+              violent storm in the known universe
+              that spot is at least three times
+              the size of Earth!"
+              position="24.5 -1 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="19"
+              align="center"
+              line-height="60"
+            ></a-text>
+            <a-entity
+              geometry="primitive: plane"
+              position="-25 0 -1"
+              rotation="0 20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Planet Info:"
+              position="-25 5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Diameter (142,984 km)
+              Mass (318 times earth)
+              Rotation Period [Days] (0.414)
+              Orbital Period [Years] (11.86)
+              "
+              position="-25 -0.5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="23"
+              align="center"
+              line-height="80"
+            ></a-text>
+          </a-entity>
+          <a-sphere
+            id="jupiter"
+            position="0 0 0"
+            radius="10"
+            src="#jupiter-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+        </a-entity>
+        <a-entity id="scene7" visible="false">
+          <a-entity id="name">
+            <a-text
+              value="Saturn"
+              position="0 15 0"
+              color="white"
+              width="100"
+              align="center"
+            ></a-text>
+          </a-entity>
+          <a-entity id="info">
+            <a-entity
+              geometry="primitive: plane"
+              position="25 0 -1"
+              rotation="0 -20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Curious Fact:"
+              position="25 5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Did you know that Saturn
+              is the second largest planet,
+              but it is also the lightest.
+              If there was a bathtub big
+              enough to hold Saturn, it
+              would float on water!
+              "
+              position="24.5 -1 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="22"
+              align="center"
+              line-height="65"
+            ></a-text>
+            <a-entity
+              geometry="primitive: plane"
+              position="-25 0 -1"
+              rotation="0 20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Planet Info:"
+              position="-25 5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Diameter (120,536 km)
+              Mass (95 times earth) 
+              Rotation Period [Days] (0.426)
+              Orbital Period [Years] (29.46)
+              "
+              position="-25 -0.5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="23"
+              align="center"
+              line-height="80"
+            ></a-text>
+          </a-entity>
+          <a-sphere
+            id="saturn"
+            position="0 0 0"
+            radius="10"
+            src="#saturn-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+          <a-entity
+            id="rings"
+            scale="9 0.1 9"
+            rotation="0 -10 10"
+            position="0 1 0"
+          >
+            <a-entity
+              id="neptune-ring-1"
+              geometry="primitive: torus; radius: 1.9; radiusTubular: 0.01;segmentsTubular: 50"
+              material="color: #FFFFFF;opacity: 0.8"
+              rotation="90 0 0"
+              scale="1 1 0.1"
+            ></a-entity>
+            <a-entity
+              id="neptune-ring-2"
+              geometry="primitive: torus; radius: 1.7; radiusTubular: 0.05;segmentsTubular: 50"
+              material="color: #FFFFFF;opacity: 0.8"
+              rotation="90 0 0"
+              scale="1 1 0.1"
+            ></a-entity>
+            <a-entity
+              id="neptune-ring-3"
+              geometry="primitive: torus; radius: 1.5; radiusTubular: 0.01;segmentsTubular: 50"
+              material="color: #FFFFFF;opacity: 0.8"
+              rotation="90 0 0"
+              scale="1 1 0.1"
+            ></a-entity>
+          </a-entity>
+        </a-entity>
+        <a-entity id="scene8" visible="false">
+          <a-entity id="name">
+            <a-text
+              value="Uranus"
+              position="0 15 0"
+              color="white"
+              width="100"
+              align="center"
+            ></a-text>
+          </a-entity>
+          <a-entity id="info">
+            <a-entity
+              geometry="primitive: plane"
+              position="25 0 -1"
+              rotation="0 -20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Curious Fact:"
+              position="25 5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Did you know that Uranus'
+              ring group is the second
+              most complex in our solar
+              system (Saturn's rings are
+              the most defined).
+              "
+              position="24.5 -1 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="24"
+              align="center"
+              line-height="70"
+            ></a-text>
+            <a-entity
+              geometry="primitive: plane"
+              position="-25 0 -1"
+              rotation="0 20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Planet Info:"
+              position="-25 5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Diameter (54,108 km)
+              Mass (14.6 times earth)
+              Rotation Period [Days] (0.718)
+              Orbital Period [Years] (84.01)
+              "
+              position="-25 -0.5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="23"
+              align="center"
+              line-height="80"
+            ></a-text>
+          </a-entity>
+          <a-sphere
+            id="uranus"
+            position="0 0 0"
+            radius="10"
+            src="#uranus-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+        </a-entity>
+        <a-entity id="scene9" visible="false">
+          <a-entity id="name">
+            <a-text
+              value="Neptune"
+              position="0 15 0"
+              color="white"
+              width="100"
+              align="center"
+            ></a-text>
+          </a-entity>
+          <a-entity id="info">
+            <a-entity
+              geometry="primitive: plane"
+              position="25 0 -1"
+              rotation="0 -20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Curious Fact:"
+              position="25 5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Did you know that Neptune was
+              discovered in 1846. In 2011 it
+              finally made its first orbit
+              around the sun since its discovery,
+              it made one complete orbit around
+              the sun, because a Neptune year lasts
+              165 Earth years!
+              "
+              position="24.5 -1 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="19"
+              align="center"
+              line-height="68"
+            ></a-text>
+            <a-entity
+              geometry="primitive: plane"
+              position="-25 0 -1"
+              rotation="0 20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Planet Info:"
+              position="-25 5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Diameter (49,538 km)
+              Mass (17.2 times earth)
+              Rotation Period [Days] (0.6745)
+              Orbital Period [Years] (164.79)
+              "
+              position="-25 -0.5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="23"
+              align="center"
+              line-height="80"
+            ></a-text>
+          </a-entity>
+          <a-sphere
+            id="neptune"
+            position="0 0 0"
+            radius="10"
+            src="#neptune-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+        </a-entity>
+        <a-entity id="scene10" visible="false">
+          <a-entity id="name">
+            <a-text
+              value="Pluto"
+              position="0 15 0"
+              color="white"
+              width="100"
+              align="center"
+            ></a-text>
+          </a-entity>
+          <a-entity id="info">
+            <a-entity
+              geometry="primitive: plane"
+              position="25 0 -1"
+              rotation="0 -20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Curious Fact:"
+              position="25 5 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Did you know that Pluto's orbit
+              brings it sometimes closer to the
+              Sun than Neptune. It overtook
+              Neptune on September 5, 1989
+              and remained there until February
+              1999 when it was once again the
+              farthest.
+              "
+              position="24.5 -1 -0.5"
+              rotation="0 -20 0"
+              color="black"
+              width="20"
+              align="center"
+              line-height="65"
+            ></a-text>
+            <a-entity
+              geometry="primitive: plane"
+              position="-25 0 -1"
+              rotation="0 20 0"
+              scale="15 15 0"
+              color="white"
+              material="opacity: 0.5; transparent: true"
+            ></a-entity>
+            <a-text
+              value="Planet Info:"
+              position="-25 5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="40"
+              align="center"
+            ></a-text>
+            <a-text
+              value="
+              Diameter (2370 km)
+              Mass (0.0021 times earth)
+              Rotation Period [Days] (-6.3872)
+              Orbital Period [Years] (247.92)
+              "
+              position="-24.5 -0.5 -0.5"
+              rotation="0 20 0"
+              color="black"
+              width="22"
+              align="center"
+              line-height="80"
+            ></a-text>
+          </a-entity>
+          <a-sphere
+            id="pluto"
+            position="0 0 0"
+            radius="10"
+            src="#pluto-texture"
+            mixin="rotation"
+            light="type: point"
+            material="shader: flat;"
+          ></a-sphere>
+        </a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
